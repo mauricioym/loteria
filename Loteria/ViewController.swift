@@ -8,86 +8,44 @@
 
 import UIKit
 
-enum GameType: Int {
-    case megasena
-    case quina
-}
-
-infix operator >-<
-func >-< (quantity: Int, total: Int) -> [Int] {
-    var result: [Int] = []
-    if quantity > total {
-        return result
-    }
-    while result.count < quantity {
-        let number = Int(arc4random_uniform(UInt32(total)) + 1)
-        if !result.contains(number) {
-            result.append(number)
-        }
-    }
-    return result
-}
-
 class ViewController: UIViewController {
 
     @IBOutlet weak var lbTitle: UILabel!
     @IBOutlet var btBalls: [UIButton]!
     @IBOutlet weak var swOrdering: UISwitch!
     
-    var megasena = 6>-<60
-    var quina = 5>-<80
-    var gameSelected: GameType = .megasena
+    var megasena = Game("Mega-Sena", 6, 60)
+    var quina = Game("Quina", 5, 80)
+    var gameSelected: Game!
     var ascending = false
     var orderIsBroken = false
     var switchDefaultOnTintColor: UIColor?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        gameSelected = megasena
         switchDefaultOnTintColor = swOrdering.onTintColor
         updateBalls()
     }
 
     @IBAction func changeGameType(_ sender: UISegmentedControl) {
-        gameSelected = GameType(rawValue: sender.selectedSegmentIndex)!
-        switch gameSelected {
-        case .megasena:
-            lbTitle.text = "Mega-Sena"
-        case .quina:
-            lbTitle.text = "Quina"
-        }
+        gameSelected = sender.selectedSegmentIndex == 0 ? megasena : quina
+        lbTitle.text = gameSelected.name
         updateBalls()
     }
     
     @IBAction func changeBall(_ sender: UIButton) {
-        var newNumber = sender.tag
-        
-        switch gameSelected {
-        case .megasena:
-            let index = megasena.index(of: newNumber)
+        if let newNumber = gameSelected.update(number: sender.tag) {
+            sender.setTitle("\(newNumber)", for: .normal)
+            sender.tag = newNumber
             
-            while megasena.contains(newNumber) {
-                newNumber = Int(arc4random_uniform(UInt32(60)) + 1)
+            if ascending && orderBroken() {
+                swOrdering.onTintColor = .red
+                orderIsBroken = true
+            } else {
+                swOrdering.onTintColor = switchDefaultOnTintColor
+                orderIsBroken = false
             }
-            
-            megasena[index!] = newNumber
-        case .quina:
-            let index = quina.index(of: newNumber)
-            
-            while quina.contains(newNumber) {
-                newNumber = Int(arc4random_uniform(UInt32(80)) + 1)
-            }
-            
-            quina[index!] = newNumber
-        }
-        
-        sender.setTitle("\(newNumber)", for: .normal)
-        sender.tag = newNumber
-        if ascending && orderBroken() {
-            swOrdering.onTintColor = .red
-            orderIsBroken = true
-        } else {
-            swOrdering.onTintColor = switchDefaultOnTintColor
-            orderIsBroken = false
         }
     }
     
@@ -101,28 +59,16 @@ class ViewController: UIViewController {
     }
     
     @IBAction func generate() {
-        switch gameSelected {
-        case .megasena:
-            megasena = 6>-<60
-        case .quina:
-            quina = 5>-<80
-        }
+        gameSelected.updateNumbers()
         updateBalls()
     }
     
     func updateBalls() {
-        var game: [Int] = []
+        let numbers = ascending ? gameSelected.numbers.sorted() : gameSelected.numbers
         
-        switch gameSelected {
-        case .megasena:
-            game = ascending ? megasena.sorted() : megasena
-            btBalls.last?.isHidden = false
-        case .quina:
-            game = ascending ? quina.sorted() : quina
-            btBalls.last?.isHidden = true
-        }
+        btBalls.last?.isHidden = (numbers.count == 5)
         
-        for (index, number) in game.enumerated() {
+        for (index, number) in numbers.enumerated() {
             btBalls[index].setTitle("\(number)", for: .normal)
             btBalls[index].tag = number
         }
@@ -131,11 +77,12 @@ class ViewController: UIViewController {
             orderIsBroken = false
             swOrdering.onTintColor = switchDefaultOnTintColor
         }
+    
     }
     
     func orderBroken() -> Bool {
-        let game = gameSelected == .megasena ? megasena.sorted() : quina.sorted()
-        for (index, number) in game.enumerated() {
+        let numbers = gameSelected.numbers.sorted()
+        for (index, number) in numbers.enumerated() {
             if btBalls[index].tag != number {
                 return true
             }
