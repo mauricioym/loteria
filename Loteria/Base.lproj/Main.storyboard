@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" systemVersion="17A277" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -9,16 +14,194 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Loteria" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="top" translatesAutoresizingMaskIntoConstraints="NO" id="B0N-o3-LLR">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="131"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="B0N-o3-LLR" secondAttribute="height" multiplier="375:131" id="g6C-g1-aCN"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mega-Sena" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o5w-Fe-OdC">
+                                <rect key="frame" x="16" y="41.5" width="343" height="48"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="40"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="6k9-GN-hDs">
+                                <rect key="frame" x="16" y="139" width="343" height="464"/>
+                                <subviews>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="IgL-kD-K0I">
+                                        <rect key="frame" x="0.0" y="0.0" width="343" height="29"/>
+                                        <segments>
+                                            <segment title="Mega-Sena"/>
+                                            <segment title="Quina"/>
+                                        </segments>
+                                        <color key="tintColor" red="0.17978227138519287" green="0.39880800247192383" blue="0.74221068620681763" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <connections>
+                                            <action selector="changeGameType:" destination="BYZ-38-t0r" eventType="valueChanged" id="b0i-Ag-mfy"/>
+                                        </connections>
+                                    </segmentedControl>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="BNM-a5-1rf">
+                                        <rect key="frame" x="24.5" y="81" width="294" height="196"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="hpy-Ro-R6x">
+                                                <rect key="frame" x="0.0" y="0.0" width="294" height="90"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8sd-xH-5Uv">
+                                                        <rect key="frame" x="0.0" y="0.0" width="90" height="90"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="44"/>
+                                                        <state key="normal" title="60" backgroundImage="ball">
+                                                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="changeBall:" destination="BYZ-38-t0r" eventType="touchUpInside" id="daK-Pq-wbM"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gfp-fm-oas">
+                                                        <rect key="frame" x="102" y="0.0" width="90" height="90"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="44"/>
+                                                        <state key="normal" title="60" backgroundImage="ball">
+                                                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="changeBall:" destination="BYZ-38-t0r" eventType="touchUpInside" id="o6a-PA-T9V"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9xR-kQ-CuZ">
+                                                        <rect key="frame" x="204" y="0.0" width="90" height="90"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="44"/>
+                                                        <state key="normal" title="60" backgroundImage="ball">
+                                                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="changeBall:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nTK-Jm-w7V"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="oZr-mS-zbb">
+                                                <rect key="frame" x="0.0" y="106" width="294" height="90"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oVU-IB-2Gz">
+                                                        <rect key="frame" x="0.0" y="0.0" width="90" height="90"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="44"/>
+                                                        <state key="normal" title="60" backgroundImage="ball">
+                                                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="changeBall:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1Jv-3W-yqw"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tAC-3A-dZg">
+                                                        <rect key="frame" x="102" y="0.0" width="90" height="90"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="44"/>
+                                                        <state key="normal" title="60" backgroundImage="ball">
+                                                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="changeBall:" destination="BYZ-38-t0r" eventType="touchUpInside" id="lSr-MM-Top"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cxK-Dp-S6b">
+                                                        <rect key="frame" x="204" y="0.0" width="90" height="90"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="44"/>
+                                                        <state key="normal" title="60" backgroundImage="ball">
+                                                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="changeBall:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uIh-8o-0Zx"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Bg0-fM-yxa">
+                                        <rect key="frame" x="55.5" y="330" width="232" height="31"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Em ordem crescente" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wog-6r-Z09">
+                                                <rect key="frame" x="0.0" y="0.0" width="167" height="31"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="xoz-9m-J7g">
+                                                <rect key="frame" x="183" y="0.0" width="51" height="31"/>
+                                                <connections>
+                                                    <action selector="changeOrdering:" destination="BYZ-38-t0r" eventType="valueChanged" id="ggx-p0-GRA"/>
+                                                </connections>
+                                            </switch>
+                                        </subviews>
+                                    </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GTM-uy-kaP">
+                                        <rect key="frame" x="0.0" y="414" width="343" height="50"/>
+                                        <color key="backgroundColor" red="0.1797822714" green="0.39880800249999998" blue="0.74221068619999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="SUz-BN-rti"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                        <state key="normal" title="Gerar">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="12"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="generate" destination="BYZ-38-t0r" eventType="touchUpInside" id="FWW-yg-KXP"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="GTM-uy-kaP" firstAttribute="leading" secondItem="6k9-GN-hDs" secondAttribute="leading" id="AJe-iB-7Vz"/>
+                                    <constraint firstItem="IgL-kD-K0I" firstAttribute="top" secondItem="6k9-GN-hDs" secondAttribute="top" id="DFo-5d-pwg"/>
+                                    <constraint firstItem="IgL-kD-K0I" firstAttribute="leading" secondItem="6k9-GN-hDs" secondAttribute="leading" id="Mx2-TJ-KlH"/>
+                                    <constraint firstAttribute="trailing" secondItem="GTM-uy-kaP" secondAttribute="trailing" id="ocR-d8-FVE"/>
+                                    <constraint firstAttribute="bottom" secondItem="GTM-uy-kaP" secondAttribute="bottom" id="rN8-lM-lPw"/>
+                                    <constraint firstAttribute="trailing" secondItem="IgL-kD-K0I" secondAttribute="trailing" id="uUc-iV-rZM"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="6k9-GN-hDs" firstAttribute="top" secondItem="B0N-o3-LLR" secondAttribute="bottom" constant="8" id="FGT-uM-iqc"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="6k9-GN-hDs" secondAttribute="trailing" constant="16" id="MGW-fb-bbO"/>
+                            <constraint firstItem="B0N-o3-LLR" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="PVb-Px-Hse"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="o5w-Fe-OdC" secondAttribute="trailing" constant="16" id="U4R-k8-jI7"/>
+                            <constraint firstItem="B0N-o3-LLR" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="VEY-EK-eQu"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="6k9-GN-hDs" secondAttribute="bottom" constant="20" id="kDc-lA-AHZ"/>
+                            <constraint firstItem="o5w-Fe-OdC" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="oCf-hD-KnS"/>
+                            <constraint firstItem="6k9-GN-hDs" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="oQ9-KR-SKx"/>
+                            <constraint firstItem="o5w-Fe-OdC" firstAttribute="centerY" secondItem="B0N-o3-LLR" secondAttribute="centerY" id="rSA-bT-q91"/>
+                            <constraint firstItem="B0N-o3-LLR" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="rtd-gJ-x2o"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <toolbarItems/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="lbTitle" destination="o5w-Fe-OdC" id="1yt-wI-Gma"/>
+                        <outlet property="swOrdering" destination="xoz-9m-J7g" id="shz-XS-5T5"/>
+                        <outletCollection property="btBalls" destination="8sd-xH-5Uv" collectionClass="NSMutableArray" id="7q5-Ts-Rs8"/>
+                        <outletCollection property="btBalls" destination="gfp-fm-oas" collectionClass="NSMutableArray" id="PFw-aR-Gwt"/>
+                        <outletCollection property="btBalls" destination="9xR-kQ-CuZ" collectionClass="NSMutableArray" id="C6a-nr-rDp"/>
+                        <outletCollection property="btBalls" destination="oVU-IB-2Gz" collectionClass="NSMutableArray" id="cgZ-oY-fqa"/>
+                        <outletCollection property="btBalls" destination="tAC-3A-dZg" collectionClass="NSMutableArray" id="eNZ-Xw-mvU"/>
+                        <outletCollection property="btBalls" destination="cxK-Dp-S6b" collectionClass="NSMutableArray" id="BpU-fX-lCm"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="566" y="-10"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="ball" width="90" height="90"/>
+        <image name="top" width="750" height="295"/>
+    </resources>
 </document>
