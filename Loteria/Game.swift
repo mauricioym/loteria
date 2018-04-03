@@ -9,11 +9,8 @@
 import Foundation
 
 infix operator >-<
-func >-< (quantity: Int, total: Int) -> [Int] {
+func >-< (quantity: UInt8, total: UInt8) -> [Int] {
     var result: [Int] = []
-    if quantity > total {
-        return result
-    }
     while result.count < quantity {
         let number = Int(arc4random_uniform(UInt32(total)) + 1)
         if !result.contains(number) {
@@ -25,31 +22,35 @@ func >-< (quantity: Int, total: Int) -> [Int] {
 
 class Game {
     var name: String
-    var quantity: Int
-    var total: Int
-    var numbers: [Int]
     
-    init(_ name: String, _ quantity: Int, _ total: Int) {
+    let quantity: UInt8
+    let total: UInt8
+    
+    private var _numbers: [Int]
+    var numbers: [Int] {
+        return _numbers
+    }
+    
+    init(_ name: String, _ quantity: UInt8, _ total: UInt8) {
         self.name = name
-        self.quantity = quantity
+        self.quantity = min(quantity, total)
         self.total = total
-        numbers = quantity >-< total
+        _numbers = quantity >-< total
     }
     
     func updateNumbers() {
-        numbers = quantity >-< total
+        _numbers = quantity >-< total
     }
     
     func update(number: Int) -> Int? {
-        if let index = numbers.index(of: number) {
+        if let index = _numbers.index(of: number) {
             var newNumber = number
-            while numbers.contains(newNumber) {
+            while _numbers.contains(newNumber) {
                 newNumber = Int(arc4random_uniform(UInt32(total)) + 1)
             }
-            numbers[index] = newNumber
+            _numbers[index] = newNumber
             return newNumber
-        } else {
-            return nil
         }
+        return nil
     }
 }

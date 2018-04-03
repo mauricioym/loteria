@@ -8,6 +8,18 @@
 
 import UIKit
 
+extension UIButton {
+    var number: Int {
+        get {
+            return self.tag
+        }
+        set {
+            self.setTitle("\(newValue)", for: .normal)
+            self.tag = newValue
+        }
+    }
+}
+
 class ViewController: UIViewController {
 
     @IBOutlet weak var lbTitle: UILabel!
@@ -19,12 +31,10 @@ class ViewController: UIViewController {
     var gameSelected: Game!
     var ascending = false
     var orderIsBroken = false
-    var switchDefaultOnTintColor: UIColor?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         gameSelected = megasena
-        switchDefaultOnTintColor = swOrdering.onTintColor
         updateBalls()
     }
 
@@ -35,15 +45,14 @@ class ViewController: UIViewController {
     }
     
     @IBAction func changeBall(_ sender: UIButton) {
-        if let newNumber = gameSelected.update(number: sender.tag) {
-            sender.setTitle("\(newNumber)", for: .normal)
-            sender.tag = newNumber
+        if let newNumber = gameSelected.update(number: sender.number) {
+            sender.number = newNumber
             
             if ascending && orderBroken() {
                 swOrdering.onTintColor = .red
                 orderIsBroken = true
             } else {
-                swOrdering.onTintColor = switchDefaultOnTintColor
+                swOrdering.onTintColor = nil
                 orderIsBroken = false
             }
         }
@@ -69,13 +78,12 @@ class ViewController: UIViewController {
         btBalls.last?.isHidden = (numbers.count == 5)
         
         for (index, number) in numbers.enumerated() {
-            btBalls[index].setTitle("\(number)", for: .normal)
-            btBalls[index].tag = number
+            btBalls[index].number = number
         }
         
         if ascending && orderIsBroken {
             orderIsBroken = false
-            swOrdering.onTintColor = switchDefaultOnTintColor
+            swOrdering.onTintColor = nil
         }
     
     }
@@ -83,7 +91,7 @@ class ViewController: UIViewController {
     func orderBroken() -> Bool {
         let numbers = gameSelected.numbers.sorted()
         for (index, number) in numbers.enumerated() {
-            if btBalls[index].tag != number {
+            if btBalls[index].number != number {
                 return true
             }
         }
